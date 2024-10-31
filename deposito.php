@@ -34,7 +34,7 @@ session_start();
         $_SESSION['saldo'] += $valorDeposito; // incrementando o valor de depósito para o saldo 
         
         
-        echo "Saque de R$$valorDeposito concluido com sucessso!! ";  // imprimindo valor de depositos, após todas as verificações
+        echo "Depósito de R$$valorDeposito concluido com sucessso!! ";  // imprimindo valor de depositos, após todas as verificações
     }
 
  }

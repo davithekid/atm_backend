@@ -8,16 +8,16 @@
 
 <body>
     <button>
-        <a href="./saldo.php">saldo</a>
+        <a href="./saldo.php">Saldo</a>
     </button>
     <button>
-        <a href="#">saque</a>
+        <a href="./saque.php">Saque</a>
     </button>
     <button>
-        <a href="./deposito.php">deposito</a>
+        <a href="./deposito.php">Depósito</a>
     </button>
     <button>
-        <a href="#">emissao de extrato</a>
+        <a href="./extrato">Emissão de extrato</a>
     </button>
 </body>
 
