@@ -5,11 +5,11 @@
 - **Descrição**: A função `isset()` verifica se uma variável está definida e não é `null`.
 - **Uso Comum**: Frequentemente utilizada para checar se variáveis de sessão ou dados de formulários estão disponíveis antes de serem usadas, evitando erros.
 
-  ```php
+  ~~~~php
   if (isset($_SESSION['saldo'])) {
       // A variável 'saldo' está definida e não é null
   }
-  
+  ~~~~
 -!isset ( usa um operador lógico para que se caso a variavel n estiver definida, ele executa o bloco abaixo)
 
 

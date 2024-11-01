@@ -23,7 +23,7 @@ session_start();
     {
      $valorDeposito = $_POST['deposito'];
      if($valorDeposito < 1){
-        echo 'Valor invalido para saque!!'; //verificando se o valor para saque é suficiente
+        echo 'Valor invalido para depósitar!!'; //verificando se o valor para saque é suficiente
     } else{
            
        

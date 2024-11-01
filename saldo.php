@@ -14,10 +14,11 @@ session_start();
 <body>
 
 <?php
-if (isset($_SESSION["saldo"])) { // verificando se saldo ja foi definida ou é um valor null
-    echo 'Seu saldo atual é: R$' .  $_SESSION["saldo"]; // imprimi o novo valor de saldo (incrementação do depósito)
 
-} else {
+ if (isset($_SESSION["saldo"])) { // verificando se saldo ja foi definida ou é um valor null
+    echo 'Seu saldo atual é: R$' .  $_SESSION["saldo"] ; // imprimir o novo valor de saldo (incrementação do depósito)        
+  } 
+  else {
     echo "Seu saldo atual é: R$ 0,00"; // saldo por padrão (antes de depósitar)
 }
 
