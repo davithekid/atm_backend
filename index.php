@@ -38,8 +38,7 @@ if (isset($_SESSION["saldo"])) { // verificando se saldo ja foi definida ou é u
     </main>
 
     <br>
-<button>
-    <a href="./index.php">voltar</a>
+
 
 
     </form>

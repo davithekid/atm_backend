@@ -13,7 +13,8 @@ session_start();
 
 <body>
     <form action="deposito.php" method="post">
-        Valor de Depósito: <input type="text" name="deposito">
+        
+        Valor de Depósito: <input type="text" name="deposito" placeholder="R$">
         <input type="submit" value="depositar">
     </form>
 
@@ -34,7 +35,7 @@ session_start();
         $_SESSION['saldo'] += $valorDeposito; // incrementando o valor de depósito para o saldo 
         
         
-        echo "Depósito de R$$valorDeposito concluido com sucessso!! ";  // imprimindo valor de depositos, após todas as verificações
+        echo "Depósito de R$$valorDeposito,00 concluido com sucessso!! ";  // imprimindo valor de depositos, após todas as verificações
     }
 
  }

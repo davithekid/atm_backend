@@ -7,6 +7,11 @@ if (isset($_SESSION['saldo'])) {
     echo "Saldo da conta: R$0,00";
 }
 
+if (!isset($_SESSION['limite'])) {
+    $_SESSION['limite'] = 0; // limite inicial
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -22,6 +27,9 @@ if (isset($_SESSION['saldo'])) {
     <form action="saque.php" method="post">
         Escolha a quantidade que você deseja sacar dessa conta. <input type="text" name="saque">
         <input type="submit" value="sacar">
+        <br>notas disponiveis:
+        R$10,00 , R$20,00 , R$50,00, R$100,<br>
+        <br> Limite Diario: R$2000,00.
     </form>
     <?php
 
@@ -30,49 +38,81 @@ if (isset($_SESSION['saldo'])) {
 
         $saque = $_POST['saque'];
 
-
-        if ($saque > $_SESSION['saldo']) {
+        if (!isset($_SERVER['saldo']) <= 0) {
+            echo "sem valor para saque";
+        } elseif ($saque > $_SESSION['saldo']) {
             echo "Valor maior que saldo";
+    
         } else {
 
 
             switch ($saque) {
-                case 5:
-                    $saque = 5;
-                    $_SESSION['saldo'] -= $saque;
-                    echo $_SESSION['saldo'];
-                    break;
                 case 10:
-                    $saque = 10;
-                    $_SESSION['saldo'] -= $saque;
-                    echo $_SESSION['saldo'];
+                    // verificação de limite
+                    if ($_SESSION['limite'] >= 2000) { // valor de limite
+
+                        echo "Limite máximo de R$2000,00 atingido! <br>";
+                        
+                    } else {
+
+                        $_SESSION['saldo'] -= 10; 
+                        echo "Saque de R$10,00 efetuado com sucesso!! <br>";
+                        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00<br>";
+                        $_SESSION['limite'] += 10; // acumulando o limite
+                        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>"; // mensagem limite
+
+                    }
                     break;
                 case 20:
-                    $saque = 20;
-                    $_SESSION['saldo'] -= $saque;
-                    echo $_SESSION['saldo'];
+                    if ($_SESSION['limite'] >= 2000) {
+
+                        echo "Limite máximo de R$2000,00 atingido! <br>";
+
+                    } else {
+                        $_SESSION['saldo'] -= 20;
+                        echo "Saque de R$20,00 efetuado com sucesso!! <br>";
+                        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00<br>";
+                        $_SESSION['limite'] += 20; // acumulando o limite
+                        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+                    }
                     break;
                 case 50;
-                    $saque = 50;
-                    $_SESSION['saldo'] -= $saque;
-                    echo $_SESSION['saldo'];
+                    if ($_SESSION['limite'] >= 2000) {
+
+                        echo "Limite máximo de R$2000,00 atingido! <br>";
+
+                    } else {
+                        $_SESSION['saldo'] -= 50;
+                        echo "Saque de R$$saque,00 efetuado com sucesso!! <br>";
+                        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00 <br>";
+                        $_SESSION['limite'] += 50; // acumulando o limite
+                        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+
+                    }
                     break;
                 case 100;
-                    $saque = 100;
-                    $_SESSION['saldo'] -= $saque;
-                    echo "Saque de R$$saque,00 efetuado com sucesso!! <br>";
-                    echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00";
+                    if ($_SESSION["limite"] >= 2000) {
+
+                        echo "Limite máximo de R$2000,00 atingido! <br>";
+
+                    } else {
+
+                        $_SESSION['saldo'] -= 100;
+                        echo "Saque de R$$saque,00 efetuado com sucesso!! <br>";
+                        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00 <br>";
+                        $_SESSION['limite'] += 100; // acumulando o limite
+                        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+            
+                    }
                     break;
-                case $saque:
-                    break;
-
-            }
-        }
-
-    }
 
 
+            } // fechamento while
+    
 
+        } // fechamento verificação saldo
+    
+    } // fechamneto request
     ?>
     <br>
     <button>
@@ -81,3 +121,57 @@ if (isset($_SESSION['saldo'])) {
 </body>
 
 </html>
+
+<!-- // Inicie a variável limite na sessão, se não estiver definida
+if (!isset($_SESSION['limite'])) {
+    $_SESSION['limite'] = 0; // Inicializa o limite se não existir
+}
+
+switch ($saque) {
+    case 10:
+        $_SESSION['saldo'] -= 10; // Deduz 10 do saldo
+        echo "Saque de R$10,00 efetuado com sucesso!! <br>";
+        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00<br>";
+        $_SESSION['limite'] += 10; // Acumula o limite
+
+        // Mostra o limite acumulado
+        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+
+        // Exemplo de parada: se o limite exceder 200, para o processo
+        if ($_SESSION['limite'] > 200) {
+            echo "Limite máximo de R$200,00 atingido! <br>";
+            // Aqui você pode decidir o que fazer, como encerrar o processo ou retornar.
+        }
+        break;
+
+    case 20:
+        $_SESSION['saldo'] -= 20; // Deduz 20 do saldo
+        echo "Saque de R$20,00 efetuado com sucesso!! <br>";
+        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00<br>";
+        $_SESSION['limite'] += 20; // Acumula o limite
+        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+        break;
+
+    case 50:
+        $_SESSION['saldo'] -= 50; // Deduz 50 do saldo
+        echo "Saque de R$50,00 efetuado com sucesso!! <br>";
+        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00<br>";
+        $_SESSION['limite'] += 50; // Acumula o limite
+        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+        break;
+
+    case 100:
+        $_SESSION['saldo'] -= 100; // Deduz 100 do saldo
+        echo "Saque de R$100,00 efetuado com sucesso!! <br>";
+        echo "Saldo Atual: R$" . $_SESSION['saldo'] . ",00<br>";
+        $_SESSION['limite'] += 100; // Acumula o limite
+        echo "Limite total após saque: R$" . $_SESSION['limite'] . ",00<br>";
+        break;
+
+    default:
+        echo "Valor de saque inválido!<br>";
+        break;
+}
+
+// Exibe o limite total após todos os saques
+echo "Limite final acumulado: R$" . $_SESSION['limite'] . ",00<br>"; -->
