@@ -1,18 +1,33 @@
-# conhecimentos com o projeto
+# learnings do projeto #
 
-## isset  e !isset()
-## 1. `isset()`
-- **Descrição**: A função `isset()` verifica se uma variável está definida e não é `null`.
-- **Uso Comum**: Frequentemente utilizada para checar se variáveis de sessão ou dados de formulários estão disponíveis antes de serem usadas, evitando erros.
+## 1. `isset`
 
-  ~~~~php
-  if (isset($_SESSION['saldo'])) {
-      // A variável 'saldo' está definida e não é null
-  }
-  ~~~~
--!isset ( usa um operador lógico para que se caso a variavel n estiver definida, ele executa o bloco abaixo)
+A função `isset()` verifica se uma variável está definida e não é `null`. Exemplo:
+
+```php
+if (isset($variavel)) {
+  echo "Esta variável está definida, então vou imprimir.";
+}
+```
+
+  Determina se uma variável está declarada e é diferente de null
+
+`!isset`
+Quando você quer verificar se uma variável **não** está definida ou é `null`, pode usar o operador lógico `!` com a função `isset`:
+
+```php
+if (!isset($variavel)) {
+  echo "A variável não está definida, então vou executar o bloco abaixo.";
+}
+````
+
+- if ($_SERVER["REQUEST_METHOD"] == "POST") // está verificando as informações do formulário
 
 
 
- - if ($_SERVER["REQUEST_METHOD"] == "POST") // está verificando as informações do formulário
-   . eu posso fundir os dois em uma linha, podendo verificar as inforrmações enviadas pelo usuário e se o valor foi null ou não.
+
+
+
+
+
+
