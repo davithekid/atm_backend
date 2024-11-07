@@ -3,9 +3,9 @@
 session_start();
 
 if (isset($_SESSION['saldo'])) {
-    echo "Saldo da conta: R$" . $_SESSION['saldo'] . ",00";
+    echo "<h2> Saldo da conta: R$" . $_SESSION['saldo'] . ",00 </h2>";
 } else {
-    echo "Saldo da conta: R$0,00";
+    echo "<h2> Saldo da conta: R$0,00 </h2>";
 }
 
 if (!isset($_SESSION['limite'])) {
