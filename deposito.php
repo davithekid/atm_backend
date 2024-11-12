@@ -58,23 +58,24 @@ if (!isset($_SESSION['limite'])) {
 
     <?php
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formulario
+{
     // validação de número inteiro
     $valorDeposito = filter_input(INPUT_POST, 'enviar', FILTER_VALIDATE_INT); // tipo, var, filtro
     if ($valorDeposito === false) {
         $valorDeposito = 0;
     }
-    if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formulario
-    {
-        if (isset($_SESSION['saldo']) && $_SESSION['saldo'] >= 5000) {
-            echo "Limite máximo de depósito atingido.";
-        } else {
+    
+    if (isset($_SESSION['saldo']) && $_SESSION['saldo'] >= 5000) {
+        echo "<p style= 'color: red; '> Limite máximo de depósito atingido. </p>";
+    } else {
 
 
 
 
 
             if ($valorDeposito < 10 || $valorDeposito > 5000) {
-                echo 'Valor invalido para depósitar!!'; //verificando se o valor para saque é suficiente
+                echo "<p style='color: red;'>Valor invalido para depósitar!! </p>"; //verificando se o valor para saque é suficiente
             } else {
 
 
