@@ -17,26 +17,24 @@ if (!isset($_SESSION['limite'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     
-    $saque = 0;
+    
 
-    $saque = filter_input(INPUT_POST,'enviar', FILTER_VALIDATE_INT);
-    if($saque === false){
-        $saque = 0;
-    }
 
-    if (isset($_POST['um'])) {
-        $saque = 1;
-    } elseif (isset($_POST['dois'])) {
-        $saque = 2;
-    } elseif (isset($_POST['tres'])) {
-        $saque = 3;
-    } elseif (isset($_POST['quatro'])) {
-        $saque = 4;
-    } elseif (isset($_POST['cinco'])) {
-        $saque = 5;
-    } elseif (isset($_POST['seis'])) {
-        $saque = 6;
+
+if (isset($_POST['um'])) {
+    $saque = 1;
+} elseif (isset($_POST['dois'])) {
+    $saque = 2;
+} elseif (isset($_POST['tres'])) {
+    $saque = 3;
+} elseif (isset($_POST['quatro'])) {
+    $saque = 4;
+} elseif (isset($_POST['cinco'])) {
+    $saque = 5;
+} elseif (isset($_POST['seis'])) {
+    $saque = 6;
     } elseif (isset($_POST['sete'])) {
         $saque = 7;
     } elseif (isset($_POST['oito'])) {
@@ -51,25 +49,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // caso não estiver nada atribuido, será armazenado o valor 0
 
     }
-
-
-
-       
-
+    
+    
+    $saque = filter_input(INPUT_POST,'enviar', FILTER_VALIDATE_INT);
+    if($saque === false){
+        $saque = 0;
+    }
+    
 
     // verificação saldo
     if (!isset($_SESSION['saldo']) || $_SESSION['saldo'] <= 0) {
         echo "Sem saldo disponível para saque.";
     }
     elseif ($saque < 10) {
-        echo "Valor de saque inválido.";
+        echo "<p style= 'color: red; '>   Valor de saque inválido. </p>";
     } elseif ($saque > $_SESSION['saldo']) {
-        echo "Valor superior ao saldo disponível.";
+        echo "<p style= 'color: red; '>    Valor superior ao saldo disponível. </p>";
 
 
         // verificação limite
     } elseif ($_SESSION['limite'] + $saque > 2000) {
-        echo "Limite máximo de R$2000,00 atingido! <br>";
+        echo "<p style='color: #F07D25
+;' >   Limite máximo de R$2000,00 atingido! <br> </p>";
     } else {
 
         // verificação para sacar valores múltiplos
@@ -81,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // processa cálculo saque
 
         $_SESSION['saldo'] -= $saque; // saldo - saque
-        echo "Saque de R$$saque efetuado com sucesso!! <br>"; // imprimindo valor do saque
+        echo "<p style ='color: lime; '>    Saque de R$$saque efetuado com sucesso!! <br>  </p>"; // imprimindo valor do saque
         echo "<br>Saldo Atual: R$" . $_SESSION['saldo'] . ',00<br>'; // imprimindo saldo atual
         $_SESSION['limite'] += $saque; // acumulando o limite
         echo "<br>Limite total após saque: R$" . $_SESSION['limite'] . ",00<br><br>"; // imprimindo mensagem do limite
