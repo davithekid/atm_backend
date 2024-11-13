@@ -32,6 +32,14 @@ if (!isset($variavel)) {
             }
 ```
 
+## 3. `Refresh`
+  
+  Botão de atualizar site
+
+```php
+<button onclick="window.location.reload()"><button>
+```
+
 
 
 
