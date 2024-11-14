@@ -19,6 +19,7 @@ session_start();
             <h2>Escolha um serviço</h2>
             <button><a href="./saque.php">Saque</a></button>
             <button><a href="./deposito.php">Depósito</a></button>
+            <button><a href="./emprestimo.php">Empréstimo</a></button>
             <button><a href="./extrato.php">Consultar saldo | Extrato</a></button>
         </section>
     </main>

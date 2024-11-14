@@ -1,6 +1,29 @@
 <?php
 session_start();
 
+if(isset($_SESSION['deposito'])){
+    $deposito = $_SESSION['deposito'];
+    echo $deposito . '<br>';
+}else{
+
+}
+if(isset($_SESSION['saque'])){
+    $saque = $_SESSION['saque'];
+    echo $saque .'<br>';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
