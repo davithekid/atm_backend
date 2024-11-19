@@ -90,12 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 
             if ($emprestimo >= 1000) {
-                echo '<br><button>12 Parcelas <br> R$ ' . number_format($valorDeParcela12, 2, ',', '.') . '</button>';
-                echo '<br><button>6 Parcelas <br> R$ ' . number_format($valorDeParcela6, 2, ',', '.') . '</button>';
-                echo '<br><button>3 Parcelas <br>R$ ' . number_format($valorDeParcela3, 2, ',', '.') . '</button>';
-                echo '<br><button>1 Parcelas <br> R$ ' . number_format($valorDeParcela1, 2, ',', '.') . '</button> <br>';
+                echo '<br><button type="submit">12 Parcelas <br> R$ ' . number_format($valorDeParcela12, 2, ',', '.') . '</button>';
+                echo '<br><button type="submit">6 Parcelas <br> R$ ' . number_format($valorDeParcela6, 2, ',', '.') . '</button>';
+                echo '<br><button type="submit">3 Parcelas <br>R$ ' . number_format($valorDeParcela3, 2, ',', '.') . '</button>';
+                echo '<br><button type="submit">1 Parcelas <br> R$ ' . number_format($valorDeParcela1, 2, ',', '.') . '</button> <br>';
             } else if ($emprestimo >= 500) {
-                echo '<br><button>12 Parcelas <br>R$ ' . number_format($valorDeParcela12, 2, ',', '.') . '</button>';
+                echo '<br><button type=""submit" >12 Parcelas <br>R$ ' . number_format($valorDeParcela12, 2, ',', '.') . '</button>';
                 echo '<br><button>6 Parcelas <br>R$ ' . number_format($valorDeParcela6, 2, ',', '.') . '</button>';
                 echo '<br><button>3 Parcelas <br>R$ ' . number_format($valorDeParcela3, 2, ',', '.') . '</button>';
                 echo '<br><button>1 Parcelas <br> R$ ' . number_format($valorDeParcela1, 2, ',', '.') . '</button> <br>';
@@ -105,46 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo 'Valor Invalido de Solicitação de Emprestimo';
             }
-            if (isset($_POST['emprestimo'])) {
-                // Mostrar o formulário se o botão 'emprestimo' foi clicado
-                echo "<form action='emprestimo.php' method='post'>
-            Quantidade de parcelas: <input type='text' name='parcelas' placeholder='Digite o número de parcelas'>
-            Min: 2 e max 15
-                <input type='submit' value='Enviar'>
-                </form>";
-                
-                
-                // Verificar se 'parcelas' foi enviado
-                if (isset($_POST['parcelas'])) {
-                    $parcelas = $_POST['parcelas'];
-                    echo "Número de parcelas: " . htmlspecialchars($parcelas);
-                }
+            
             }
         }
-    }
+    
 ?>
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
