@@ -6,9 +6,7 @@ session_start();
 if (isset($_SESSION['saldo'])) {
     echo '<h1>Saldo atual da sua conta: R$ ' . number_format($_SESSION['saldo'], 2, ',', '.') . '</h1>';
    
-    
-    
-    
+
 } else {
     echo "<h2> Saldo da conta: R$0,00 </h2>";
    
