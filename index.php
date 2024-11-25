@@ -20,11 +20,23 @@ session_start();
             <button><a href="./saque.php">Saque</a></button>
             <button><a href="./deposito.php">Depósito</a></button>
             <button><a href="./emprestimo.php">Empréstimo</a></button>
+            <button><a href="./transferencia.php">Transferencia</a></button>
             <button><a href="./extrato.php">Consultar saldo | Extrato</a></button>
         </section>
     </main>
 
+    <footer>
 
+        <?php
+        // data atual
+        $dataAtual = new DateTime();
+        $timezone = new DateTimeZone('America/Sao_Paulo');
+        
+        $dataAtual->setTimezone($timezone);
+        echo $dataAtual->format('d/F /Y à\s h:i');
+        
+        ?>
+</footer>
 
 </body>
 

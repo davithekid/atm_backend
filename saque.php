@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<p style='color: red;'>Valor de saque inválido. O valor mínimo de saque é R$10,00.</p>";
         } elseif ($saque % 10 != 0) {
             // Caso o valor não seja múltiplo de 10, pede para arredondar
-            echo "Infelizmente não temos notas para imprimir esse valor, deseja arredondar para um valor mais baixo? ";
+            $saqueArredondado = floor($saque / 10) * 10;
+            echo "Infelizmente não temos notas para imprimir esse valor, deseja arredondar para um valor mais baixo? O valor arredondado seria: R$$saqueArredondado,00";
             echo '<form action="saque.php" method="post">';
             echo "<button type='submit' name='sim'>Sim</button>";
             echo "<button type='submit' name='nao'>Não</button>";
@@ -119,8 +120,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <footer>
         <button onclick="window.history.back()">Voltar</button>
-        <button><a href="./index.php">Menu Principal</a></button>
+        <button><a href="./index.php">Inicio</a></button>
+    <?php
+        // data atual
+        $dataAtual = new DateTime();
+        $timezone = new DateTimeZone('America/Sao_Paulo');
+
+        $dataAtual->setTimezone($timezone);
+        echo $dataAtual->format('d/F /Y à\s h:i');
+
+
+        ?>
     </footer>
+
 
 </body>
 

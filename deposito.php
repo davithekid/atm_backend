@@ -114,8 +114,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formu
                 window.history.back();
             }
         </script>
-        <button><a href="./index.php">Menu Principal</a></button>
+        <button><a href="./index.php">Inicio</a></button>
+        <?php
+        // data atual
+        $dataAtual = new DateTime();
+        $timezone = new DateTimeZone('America/Sao_Paulo');
 
+        $dataAtual->setTimezone($timezone);
+        echo $dataAtual->format('d/F /Y à\s h:i');
+
+
+        ?>
     </footer>
 
 </body>

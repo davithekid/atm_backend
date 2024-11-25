@@ -1,6 +1,20 @@
 <?php
 session_start();
 
+function dataDePagamento()
+{
+    // Cria o timestamp para o próximo mês
+    $dia30Timestamp = mktime(0, 0, 0, date("m") + 1, date("d"), date("Y"));
+    
+    // Cria um objeto DateTime e ajusta para o timestamp calculado
+    $dia30 = new DateTime();
+    $dia30->setTimestamp($dia30Timestamp);
+
+    // Retorna a data formatada
+    return $dia30->format("d/F/Y à\s h:i");
+}
+
+
 if (!isset($_SESSION['limiteEmprestimo'])) {
     $_SESSION['limiteEmprestimo'] = 1500;
     echo "Limite de emprestimo da conta:" . $_SESSION['limiteEmprestimo'];
@@ -22,16 +36,17 @@ if (isset($_SESSION['limiteEmprestimo'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empréstimo - BancoFlacko</title>
+    <script src="funcoes.js"></script>
 
 
     <script>
-        // Função para validar se o usuário selecionou um dos períodos de parcelamento
+        // função para botões de selecionar data
         function validarBotao() {
             if (!document.querySelector('input[id="dias"]:checked')) {
                 alert("Por favor, escolha um dos períodos (30 dias, 60 dias ou 90 dias).");
-                return false; // Impede o envio do formulário
+                return false;
             }
-            return true; // Permite o envio do formulário se um botão for escolhido
+            return true;
         }
     </script>
 </head>
@@ -42,7 +57,28 @@ if (isset($_SESSION['limiteEmprestimo'])) {
     <form action="emprestimo.php" method="post" onsubmit="return validarBotao()">
         Valor Mínimo: 10R$ <br>
         Pagamento em até 90 dias! <br>
-        Valor do empréstimo: <input type="text" name="emprestimo" required> <br>
+        Valor do empréstimo: <input type="text" name="emprestimo" id="saque" required> <br>
+
+
+
+        <!-- usando função para add números (onclick=" ") -->
+        <button type="button" onclick="adicionarNumero('1')">1</button>
+        <button type="button" onclick="adicionarNumero('2')">2</button>
+        <button type="button" onclick="adicionarNumero('3')">3</button><br>
+
+        <button type="button" onclick="adicionarNumero('4')">4</button>
+        <button type="button" onclick="adicionarNumero('5')">5</button>
+        <button type="button" onclick="adicionarNumero('6')">6</button><br>
+
+        <button type="button" onclick="adicionarNumero('7')">7</button>
+        <button type="button" onclick="adicionarNumero('8')">8</button>
+        <button type="button" onclick="adicionarNumero('9')">9</button><br>
+
+        <button type="button" onclick="adicionarNumero('0')">0</button>
+        <button type="button" onclick="limparCampo()">Limpar</button><br>
+
+
+
 
         <!-- Seleção do período -->
         <br>Data da primeira parcela:
@@ -65,6 +101,7 @@ if (isset($_SESSION['limiteEmprestimo'])) {
         $emprestimo = $_POST['emprestimo']; // recebendo valor de emprestimo
     
         // cálciulo de parcelas/juros/valor final
+    
         //parcelas de 12 meses
         $juros12 = 0.12;
         $parcela12 = 12;
@@ -96,43 +133,53 @@ if (isset($_SESSION['limiteEmprestimo'])) {
         // se parcela for maior que 30 é possivel parcelar até 3x , 2% de taxa
         // se for menor, voce nao pode parcelar, apenas devera pagar na data selecionada
     
+
+
+
         // calculo alíquota
-        $aliquota = ($emprestimo * 3) / 100;
+        // $aliquota = ($emprestimo * 3) / 100;
+    
 
-        
-        // calculo iof 90 diaas
-        $iofDiario = $emprestimo * 0.000082;
+        // // calculo iof 30 dias
+    
+        //     if(isset($_POST['30dias'])){
+        //         $iofDiario = $emprestimo * 0.000082;
+    
+        //         $iof30dias = $iofDiario * 30;
+    
+        //         $iofTotal = $aliquota + $iof30dias;
+        //         echo "ValorIof30: " . $iofTotal;
+        //     } else if(isset($_POST["60dias"])){
+        //         $iofDiario = $emprestimo * 0.000082;
+    
+        //         $iof60dias = $iofDiario * 60;
+    
+        //         $iofTotal = $aliquota + $iof60dias;
+        //         echo "ValorIof60: " . $iofTotal;
+        //     } else if(isset($_POST["90dias"])){
+        //         $iofDiario = $emprestimo * 0.000082;
+    
+        //         $iof90dias = $iofDiario * 90;
+    
+        //         $iofTotal = $aliquota + $iof90dias;
+        //         echo "ValorIof90: " . $iofTotal;
+        //     }
+    
 
-        $iof90dias = $iofDiario * 90;
 
-        $iofTotal = $aliquota + $iof90dias;
-        echo "aaaaaaa" . $iofTotal;
+
+
 
 
         //  verificações
         if ($_SESSION['limiteEmprestimo'] < $emprestimo) {
-            echo "<p style= 'color: red; '> Seu limite de empréstimo foi esgotado. </p>";
+            echo "<p style='color: red;'>Limite de empréstimo inválido.</p>";
         } else {
 
-
-
+            // empréstimo não pode ser maior que 1500 e nem menor que 10
             if ($emprestimo > 1500 || $emprestimo < 10) {
-                echo "Valor inválido.";
-            }
-            if ($_SESSION['limiteEmprestimo'] < 10) {
-                // buscar função para esconder form
+                echo "<p style='color: red;'>Valor inválido.</p>";
             } else {
-
-
-
-
-
-
-                if (isset($emprestimo)) {
-                    echo "<br> Valor: $emprestimo <br>"; // mostrando o valor na tela
-                }
-
-
 
 
 
@@ -170,14 +217,13 @@ if (isset($_SESSION['limiteEmprestimo'])) {
                     // casos de input de cada botão (selecionando parcela 12)
                     if (isset($_POST['botao12'])) {
 
-                        echo "Resultado de Simulação <br>";
-                        echo "parcelas <br> $parcela12 x $valorDeParcela12 ";
-                        echo "<br> Valor entregue";
-                        echo " <br> $emprestimo";
-                        echo "<br> Valor de juros";
-                        echo "<br> $juros12 <br>";
-                        echo "Valor final: $valorFinal12 <br> ";
-                        echo "Valor Iof: $iofTotal";
+                        echo "Resultado de Simulação: <br>";
+                        echo "$parcela12 parcelas de: R$" . number_format($valorDeParcela12, 2, ',', '.') . '<br>';
+                        echo "Valor entregue R$:" . number_format($emprestimo, 2, ',', '.') . '<br>';
+
+                        echo "Taxa: " . number_format($juros12, 2, ',', '.') . "%" . '<br>';
+                        echo "Valor final R$:" . number_format($valorFinal12, 2, ',', '.') . '<br>';
+                        // echo "Valor Iof: $iofTotal";
                         echo "Confirma transação? ";
 
                         //formulário para confirmação de operação 
@@ -190,15 +236,17 @@ if (isset($_SESSION['limiteEmprestimo'])) {
                     }
                     if (isset($_POST['botao6'])) {
 
-                        echo "Resultado de Simulação <br>";
-                        echo "parcelas <br> $parcela6 x $valorDeParcela6 ";
-                        echo "<br> Valor entregue";
-                        echo " <br> $emprestimo";
-                        echo "<br> Valor de juros";
-                        echo "<br> $juros6 <br>";
-                        echo "Valor final: $valorFinal6";
+                        echo "Resultado de Simulação: <br>";
 
-                        // form
+                        echo "$parcela6 parcelas de: R$" . number_format($valorDeParcela6, 2, ',', '.') . '<br>';
+                        echo "Valor entregue R$:" . number_format($emprestimo, 2, ',', '.') . '<br>';
+
+                        echo "Taxa: " . number_format($juros6, 2, ',', '.') . "%" . '<br>';
+                        echo "Valor final R$:" . number_format($valorFinal6, 2, ',', '.') . '<br>';
+                        // echo "Valor Iof: $iofTotal";
+                        echo "Confirma transação? ";
+
+                        //formulário para confirmação de operação 
                         echo '<form action="emprestimo.php" method="post">';
                         echo "<button type='submit' name='botaosim'>Sim</button>";
                         echo "<button type='submit' name='nao'>Não</button>";
@@ -209,15 +257,16 @@ if (isset($_SESSION['limiteEmprestimo'])) {
                 }
                 if (isset($_POST['botao3'])) {
 
-                    echo "Resultado de Simulação <br>";
-                    echo "parcelas <br> $parcela3 x $valorDeParcela3 "; // dados parcela
-                    echo "<br> Valor entregue";
-                    echo " <br> $emprestimo"; // input de emprestimo
-                    echo "<br> Valor de juros";
-                    echo "<br> $juros3 <br>"; // taxa de juros
-                    echo "Valor final: $valorFinal3"; // valor final (junção)
-    
-                    // form
+                    echo "Resultado de Simulação: <br>";
+                    echo "$parcela3 parcelas de: R$" . number_format($valorDeParcela3, 2, ',', '.') . '<br>';
+                    echo "Valor entregue R$:" . number_format($emprestimo, 2, ',', '.') . '<br>';
+
+                    echo "Taxa: " . number_format($juros3, 2, ',', '.') . "%" . '<br>';
+                    echo "Valor final R$:" . number_format($valorFinal3, 2, ',', '.') . '<br>';
+                    // echo "Valor Iof: $iofTotal";
+                    echo "Confirma transação? ";
+
+                    //formulário para confirmação de operação 
                     echo '<form action="emprestimo.php" method="post">';
                     echo "<button type='submit' name='botaosim'>Sim</button>";
                     echo "<button type='submit' name='nao'>Não</button>";
@@ -227,15 +276,18 @@ if (isset($_SESSION['limiteEmprestimo'])) {
                 }
                 if (isset($_POST['botao1'])) {
 
-                    echo "Resultado de Simulação <br>";
-                    echo "parcelas <br> $parcela1 x $valorDeParcela1 ";
-                    echo "<br> Valor entregue";
-                    echo " <br> $emprestimo";
-                    echo "<br> Valor de juros";
-                    echo "<br> $juros1 <br>";
-                    echo "Valor final: $valorFinal1";
+                    echo "Resultado de Simulação: <br>";
+                    echo "$parcela1 parcelas de: R$" . number_format($valorDeParcela1, 2, ',', '.') . '<br>';
+                    echo "Valor entregue R$:" . number_format($emprestimo, 2, ',', '.') . '<br>';
 
-                    // form
+                    echo "Taxa: " . number_format($juros1, 2, ',', '.') . "%" . '<br>';
+                    echo "Valor final R$:" . number_format($valorFinal1, 2, ',', '.') . '<br>';
+                
+                    // echo "Pagamento no dia: " . (dataDePagamento());
+                    // echo "Valor Iof: $iofTotal";
+                    echo "Confirma transação? ";
+
+                    //formulário para confirmação de operação 
                     echo '<form action="emprestimo.php" method="post">';
                     echo "<button type='submit' name='botaosim'>Sim</button>";
                     echo "<button type='submit' name='nao'>Não</button>";
@@ -248,13 +300,24 @@ if (isset($_SESSION['limiteEmprestimo'])) {
                 if (isset($_POST['botaosim'])) {
 
                     $_SESSION['limiteEmprestimo'] -= $emprestimo;
-                    echo "Empréstimo efetuado com sucesso! <br>";
+                    echo "<p style='color: lime;'>Empréstimo de R$$emprestimo efetuado com sucesso!</p>";
                     echo "Limite de empréstimo atual:" . $_SESSION['limiteEmprestimo'];
-                }
 
+                    $_SESSION['saldo'] = +$emprestimo;
+
+                }
             }
+
         }
+
+
+
     }
+
+
+
+
+
     ?>
 
 
@@ -265,15 +328,13 @@ if (isset($_SESSION['limiteEmprestimo'])) {
 
         <?php
         // data atual
+        setlocale(LC_TIME, 'pt_BR.UTF-8');
         $dataAtual = new DateTime();
-        echo $dataAtual->format('d/M/Y à\s h:i');
-        // função para calcular dias
-        //     $dataAtual = new DateTime();
-        //     $dataAtual ->modify('+90days');
-        //    echo  $dataAtual ->format ('d/M/Y à\s h:i');
-        
-        ?>
+        $timezone = new DateTimeZone('America/Sao_Paulo');
 
+        $dataAtual->setTimezone($timezone);
+        echo $dataAtual->format('d/F /Y à\s h:i');
+        ?>
 
     </footer>
 
