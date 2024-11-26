@@ -56,13 +56,6 @@ if(isset($_SESSION['saque'])){
 
 <footer>
 
-        <button onclick="voltarPagina()">Voltar</button>
-        <!-- função para voltar à página  anterior -->
-        <script>
-            function voltarPagina(){
-                window.history.back();
-            }
-            </script>
     <button><a href="./index.php">Inicio</a></button>
 
     <?php

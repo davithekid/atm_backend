@@ -107,14 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formu
 
 <footer>
     
-        <button onclick="voltarPagina()">Voltar</button>
-        <!-- função para voltar à página  anterior -->
-        <script>
-            function voltarPagina() {
-                window.history.back();
-            }
-        </script>
         <button><a href="./index.php">Inicio</a></button>
+        
         <?php
         // data atual
         $dataAtual = new DateTime();

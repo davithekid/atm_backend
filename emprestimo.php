@@ -322,7 +322,7 @@ if (isset($_SESSION['limiteEmprestimo'])) {
 
 
     <footer>
-        <button onclick="window.history.back()">Voltar</button>
+     
         <button><a href="./index.php">Inicio</a></button>
 
 
