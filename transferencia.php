@@ -46,11 +46,16 @@
             ];
 
             echo "<form action='transferencia.php' method='post'>";
-            echo "Valor <input type='text' name='valor'>";
+            echo "Valor: <input type='text' name='valor'>";
             echo "<input type='submit' value='enviar'>";
             echo "</form>";
             
+        }
+        
+        if (isset($_POST["valor"])){
             $valor = $_POST["valor"];
+            echo $valor;
+
         }
     }
 
