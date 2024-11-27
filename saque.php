@@ -17,9 +17,22 @@ if (isset($_SESSION['saldo'])) {
 $saque = 0; // Definindo uma variável inicial para o saque
 $mostrarFormulario = true; // Controle para mostrar o formulário de saque
 
+
+
+
+
 // Verificando se a requisição foi POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recebe o valor digitado no campo de entrada
+
+    if (!isset($_SESSION["saldo"])) {
+        echo "<p style='color: red;'>Saldo Insuficiente.</p>";
+    }else{
+
+    
+
+
+   
     if (isset($_POST['enviar'])) {
         $saque = filter_input(INPUT_POST, 'enviar', FILTER_VALIDATE_INT);
         if ($saque === false || $saque < 10) {
@@ -72,6 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['nao'])) {
         echo "Operação cancelada. Nenhum valor foi arredondado.";
     }
+    $_SESSION['saque'] = $saque;
+
+}
 }
 
 ?>
