@@ -76,6 +76,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<p style='color: lime;'>Saque de R$$saqueArredondado efetuado com sucesso!</p>";
             echo "<p>Saldo Atual: R$" . $_SESSION['saldo'] . ",00</p>";
             echo "<p>Limite total após saque: R$" . $_SESSION['limite'] . ",00</p>";
+
+            $arquivo = "meu_arquivo.txt";
+
+            $handle = fopen($arquivo , "a");
+            fwrite($handle , "Saque: " . $saque . "\n");
+            fclose($handle);
+
+
+            $arquivo = "meu_arquivo.txt";
+
+                $handle = fopen($arquivo , "a");
+                fwrite($handle , "Saque: " . $saque . "\n");
+                fclose($handle);
+
         } else {
             echo "<p style='color: red;'>Não foi possível realizar o saque, saldo ou limite insuficientes.</p>";
         }

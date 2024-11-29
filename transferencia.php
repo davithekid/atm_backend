@@ -98,6 +98,13 @@ $arrayNomes = [
 
             $_SESSION['saldo'] -= $transferencia;
 
+            $arquivo = "meu_arquivo.txt";
+
+            $handle = fopen($arquivo , "a");
+            fwrite($handle , "Transferencia: " . $transferencia . "\n");
+            fclose($handle);
+
+
         } elseif (isset($_POST['nao'])) {
             echo "Operação cancelada. Nenhum valor foi transferido.";
         }

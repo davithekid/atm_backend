@@ -94,6 +94,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formu
                 
                 $_SESSION['saldo'] += $valorDeposito; // incrementando o valor de depósito para o saldo 
                 $_SESSION['deposito'] = $valorDeposito;
+
+                $arquivo = "meu_arquivo.txt";
+
+                $handle = fopen($arquivo , "a");
+                fwrite($handle , "Depósito: " . $valorDeposito . "\n");
+                fclose($handle);
+
                 
                 echo "<p style='color: lime;'>  Depósito de R$" . number_format($valorDeposito, 2, ',', '.') . " realizado com sucesso!<br></p>";  // imprimindo valor de depositos, após todas as verificações
             }

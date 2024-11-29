@@ -232,6 +232,13 @@ if (isset($_SESSION['limiteEmprestimo'])) {
                   
                     $_SESSION['saldo'] = +$emprestimo;
 
+                    $arquivo = "meu_arquivo.txt";
+
+                    $handle = fopen($arquivo , "a");
+                    fwrite($handle , "Empréstimo: " . $emprestimo . "\n");
+                    fclose($handle);
+
+
                 }
             }
 

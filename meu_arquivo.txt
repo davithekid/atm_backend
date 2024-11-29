@@ -1,0 +1,7 @@
+2133030
+Depósito: 20
+Depósito: 21
+Saque: 21
+Saque: 21
+Empréstimo: 10
+Transferencia: 1231
