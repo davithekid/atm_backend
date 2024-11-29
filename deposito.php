@@ -79,8 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formu
             echo "<p style='color: red;'>Valor invalido para depósitar!! </p>"; //verificando se o valor para saque é suficiente
         } else {
 
-
-            
             
             if (!isset($_SESSION['saldo'])) { // se saldo não estiver definido entao ele vai executar o bloco abaixo
                 $_SESSION['saldo'] = 0;      // saldo por padrão vai receber 0 
@@ -98,8 +96,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") // vericando as informações do formu
                 $arquivo = "meu_arquivo.txt";
 
                 $handle = fopen($arquivo , "a");
-                fwrite($handle , "Depósito: " . $valorDeposito . "\n");
+                fwrite($handle , "Depósito " );
+                fwrite($handle ,   "-". number_format($valorDeposito, 2, ',', '.')    . "\n");
                 fclose($handle);
+    
 
                 
                 echo "<p style='color: lime;'>  Depósito de R$" . number_format($valorDeposito, 2, ',', '.') . " realizado com sucesso!<br></p>";  // imprimindo valor de depositos, após todas as verificações

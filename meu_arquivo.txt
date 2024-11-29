@@ -1,7 +1,6 @@
-2133030
-Depósito: 20
-Depósito: 21
-Saque: 21
-Saque: 21
-Empréstimo: 10
-Transferencia: 1231
+Depósito -5.000,00
+Saque -2.000,00
+Transferência -1.500,00
+Empréstimo -10,00
+Depósito -3.000,00
+Transferência -600,00

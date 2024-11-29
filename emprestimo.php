@@ -13,6 +13,7 @@ if (isset($_SESSION['limiteEmprestimo'])) {
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -229,15 +230,15 @@ if (isset($_SESSION['limiteEmprestimo'])) {
 
                     $_SESSION['limiteEmprestimo'] -= $emprestimo;
                     echo "<p style='color: lime;'>Empréstimo de R$$emprestimo efetuado com sucesso!</p>";
-                  
+
                     $_SESSION['saldo'] = +$emprestimo;
 
                     $arquivo = "meu_arquivo.txt";
 
-                    $handle = fopen($arquivo , "a");
-                    fwrite($handle , "Empréstimo: " . $emprestimo . "\n");
+                    $handle = fopen($arquivo, "a");
+                    fwrite($handle, "Empréstimo ");
+                    fwrite($handle, "-" . number_format($emprestimo, 2, ',', '.') . "\n");
                     fclose($handle);
-
 
                 }
             }
