@@ -1,9 +1,0 @@
-
-Saque -30,00
-Saque -10,00
-Saque -10,00
-Transferência - R$123,00
-Depósito -50,00
-Transferência - R$50,00
-Depósito -5.000,00
-Transferência - R$1.451,00

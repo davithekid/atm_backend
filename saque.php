@@ -27,12 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['enviar'])) {
             $saque = filter_input(INPUT_POST, 'enviar', FILTER_VALIDATE_INT);
 
-            if ($saque === false || $saque < 10) {
+            if ($saque === false || $saque < 10  ) {
                 echo "<p style='color: red;'>Valor de saque inválido.</p>";
 
 
-            } elseif ($saque % 10 != 0 > $_SESSION['saldo']) {
-                echo "Valor insuficiente";
+         
             } elseif ($saque % 10 != 0) {
                 // caso o valor não seja multiplo, ele arredonda
                 $saqueArredondado = floor($saque / 10) * 10;

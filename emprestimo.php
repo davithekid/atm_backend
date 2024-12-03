@@ -24,16 +24,6 @@ if (isset($_SESSION['limiteEmprestimo'])) {
     <script src="funcoes.js"></script>
 
 
-    <script>
-        // função para botões de selecionar data
-        function validarBotao() {
-            if (!document.querySelector('input[id="dias"]:checked')) {
-                alert("Por favor, escolha um dos períodos (30 dias, 60 dias ou 90 dias).");
-                return false;
-            }
-            return true;
-        }
-    </script>
 </head>
 
 <body>
@@ -65,13 +55,13 @@ if (isset($_SESSION['limiteEmprestimo'])) {
 
         <!-- Seleção do período -->
         <br>Data da primeira parcela:
-        <br><input type="radio" id="dias" name="30dias" value="30">
-        <label for="30dias">30 dias</label>
-        <br><input type="radio" id="dias" name="60dias" value="60">
-        <label for="60dias">60 dias</label>
-        <br><input type="radio" id="dias" name="90dias" value="90">
-        <label for="90dias">90 dias</label>
-        <br><br>
+        <br><input type="radio" id="dias30" name="dias" value="30" required>
+        <label for="dias30">30 dias</label>
+        <br><input type="radio" id="dias60" name="dias" value="60">
+        <label for="dias60">60 dias</label>
+        <br><input type="radio" id="dias90" name="dias" value="90" required>
+        <label for="dias90">90 dias</label>
+        <br><br>    
 
         <input type="submit" value="Enviar">
     </form>
@@ -83,6 +73,11 @@ if (isset($_SESSION['limiteEmprestimo'])) {
 
         $emprestimo = $_POST['emprestimo']; // recebendo valor de emprestimo
     
+        $emprestimo = filter_input(INPUT_POST, 'emprestimo', FILTER_VALIDATE_INT); // tipo, var, filtro
+        if ($emprestimo === false) {
+            $emprestimo = 0;
+        }
+
         // cálciulo de parcelas/juros/valor final
     
         // se parcela for maior que 1.000 é possivel parcelar até 12x 12% de taxa
@@ -264,6 +259,7 @@ if (isset($_SESSION['limiteEmprestimo'])) {
         ?>
 
     </footer>
+
 
 </body>
 
