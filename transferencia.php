@@ -16,6 +16,7 @@ if (isset($_SESSION['limiteTransferencia'])) {
     echo "<br>Limite de transferência diário da conta: R$" . $_SESSION['limiteTransferencia'] . ",00<br><br>";
 }
 
+
 $arrayNomes = [
     'nome1' => 'Maria Clara Alves da Silva',
     'nome2' => 'João Pedro Souza Lima',
@@ -119,6 +120,8 @@ $arrayNomes = [
 
                 if ($transferencia > $_SESSION['saldo']) {
                     echo "Saldo insuficiente";
+                } elseif ($transferencia > $_SESSION['limiteTransferencia']) {
+                    echo "Limite insuficiente";
                 } else {
 
                     $_SESSION['limiteTransferencia'] -= $transferencia;

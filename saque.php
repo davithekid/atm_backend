@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-
-
-
 if (!isset($_SESSION['limite'])) {
     $_SESSION['limite'] = 0; // limite inicial de saque
 }
@@ -17,44 +14,41 @@ if (isset($_SESSION['saldo'])) {
     echo "Saldo da conta: R$0,00 <br><br>";
 }
 
-$saque = 0; // Definindo uma variável inicial para o saque
-$mostrarFormulario = true; // Controle para mostrar o formulário de saque
+$saque = 0;
+$mostrarFormulario = true; // mostrar formulário 
 
-
-// Verificando se a requisição foi POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recebe o valor digitado no campo de entrada
 
     if (!isset($_SESSION["saldo"])) {
         echo "<p style='color: red;'>Saldo Insuficiente.</p>";
     } else {
 
-
+        // validação
         if (isset($_POST['enviar'])) {
             $saque = filter_input(INPUT_POST, 'enviar', FILTER_VALIDATE_INT);
 
             if ($saque === false || $saque < 10) {
                 echo "<p style='color: red;'>Valor de saque inválido.</p>";
 
-                 
-          
 
-            }elseif($saque  % 10 != 0 > $_SESSION['saldo']){
-                echo "erro";
+            } elseif ($saque % 10 != 0 > $_SESSION['saldo']) {
+                echo "Valor insuficiente";
             } elseif ($saque % 10 != 0) {
-                // Caso o valor não seja múltiplo de 10, pede para arredondar
+                // caso o valor não seja multiplo, ele arredonda
                 $saqueArredondado = floor($saque / 10) * 10;
                 echo "Infelizmente não temos notas para imprimir esse valor, deseja arredondar para um valor mais baixo? O valor arredondado seria: R$$saqueArredondado,00";
                 echo '<form action="saque.php" method="post">';
                 echo "<button type='submit' name='sim'>Sim</button>";
                 echo "<button type='submit' name='nao'>Não</button>";
-                echo "<input type='hidden' name='saque' value='$saque'/>"; // Passando o valor do saque
+                echo "<input type='hidden' name='saque' value='$saque'/>";
                 echo '</form>';
 
-                // Alterando o controle para não mostrar o formulário de saque
+                // controle para mostrar formulário
                 $mostrarFormulario = false;
             } else {
-                // Verificando se o valor é válido para saque
+
+                //vericação
+
                 if ($saque <= $_SESSION['saldo'] && $_SESSION['limite'] + $saque <= 2000) {
                     $_SESSION['saldo'] -= $saque;
                     $_SESSION['limite'] += $saque;
@@ -64,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $saqueBotao = $saque;
                     $saldoAtual = $_SESSION['saldo'];
 
+                    // criando arquivo txt para armazenar operação
                     $arquivo = "meu_arquivo.txt";
 
                     $handle = fopen($arquivo, "a");
@@ -80,19 +75,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // se o usuário selecionar o botão sim
         if (isset($_POST['sim'])) {
-            // Captura o valor do saque que foi passado através de um input hidden
             $saque = $_POST['saque'];
 
 
-            $saqueArredondado = floor($saque / 10) * 10; // Arredonda para o múltiplo de 10 mais próximo
+            $saqueArredondado = floor($saque / 10) * 10; // arredonda para o múltiplo de 10 mais próximo
 
             if ($saqueArredondado <= $_SESSION['saldo'] && $_SESSION['limite'] + $saqueArredondado <= 2000) {
-                $_SESSION['saldo'] -= $saqueArredondado; // Subtrai o valor arredondado do saldo
-                $_SESSION['limite'] += $saqueArredondado; // Atualiza o limite
+                $_SESSION['saldo'] -= $saqueArredondado;
+                $_SESSION['limite'] += $saqueArredondado;
                 echo "<p style='color: lime;'>Saque de R$$saqueArredondado efetuado com sucesso!</p>";
                 echo "<p>Saldo Atual: R$" . $_SESSION['saldo'] . ",00</p>";
                 echo "<p>Limite total após saque: R$" . $_SESSION['limite'] . ",00</p>";
                 $saldoAtual = $_SESSION['saldo'];
+
+                // criando arquivo txt para armazenar operação
 
                 $arquivo = "meu_arquivo.txt";
 
@@ -100,10 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 fwrite($handle, "Saque ");
                 fwrite($handle, "-" . number_format($saque, 2, ',', '.') . "\n");
                 fclose($handle);
-
-
-
-
 
             } else {
                 echo "<p style='color: red;'>Não foi possível realizar o saque, saldo ou limite insuficientes.</p>";
